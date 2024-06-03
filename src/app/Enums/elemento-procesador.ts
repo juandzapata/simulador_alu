@@ -11,3 +11,4 @@ export enum ElementoProcesador {
   BUS_CONTROL,
   UNIDAD_CONTROL,
 }
+// prueba
