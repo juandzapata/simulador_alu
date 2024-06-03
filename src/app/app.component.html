@@ -37,32 +37,32 @@
             </div>
           </div>
           <div class="container__body__principal__center__UC" [ngClass]="{'elemento__procesador__activo': unidadControlEstaActiva}">
-            Unidad de control
+            <p class="title">Unidad de control</p>
           </div>
           <div class="container__body__principal__center__ALU" [ngClass]="{'elemento__procesador__activo': aluEstaActiva}">
             <div>
               <div>
                 <span>{{ALU.operando1}}</span> ***** <span>{{ALU.operando2}}</span>
               </div>
-              ALU
+              <p class="title">ALU</p>
               <br>
               {{ALU.operacionAEjecutar}}
             </div>
           </div>
           <div class="container__body__principal__center__MBR" [ngClass]="{'elemento__procesador__activo': mbrEstaActivo}">
-            MBR
+            <p class="title">MBR</p>
             <br>
             {{MBR}}
           </div>
           <div class="container__body__principal__center__IR" [ngClass]="{'elemento__procesador__activo': irEstaActivo}">
-            IR
+            <p class="title">IR</p>
             <br>
             {{IR}}
           </div>
           <div class="container__body__principal__center__AG" [ngClass]="{'elemento__procesador__activo': almacenGeneralEstaActivo}">
             <div>
-              Almacén general
-              <br>
+              <p class="title">RVU</p>
+              
               <div>
                 Ax: {{almacenGeneral.A}} - Bx: {{almacenGeneral.B}} <br>
                 Cx: {{almacenGeneral.C}} - Dx: {{almacenGeneral.D}} <br>
@@ -91,7 +91,7 @@
         </div>
       </div>
 
-      <mat-card class="container__body__principal__card" [ngClass]="{'elemento__procesador__activo': memoriaEstaActiva}">
+      <mat-card class="container__body__principal__card black_text" [ngClass]="{'elemento__procesador__activo': memoriaEstaActiva}">
         <mat-card-title>Memoria principal</mat-card-title>
         <mat-card-content>
           <div *ngFor="let instruccion of memoria.celdas; index as index">
