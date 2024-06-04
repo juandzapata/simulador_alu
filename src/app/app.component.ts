@@ -127,6 +127,9 @@ export class AppComponent {
       case OperacionInstruccion.MOVE:
         await this.ejecutarInstruccionMove(operando1, operando2);
         break;
+      case OperacionInstruccion.JUMP:
+        await this.ejecutarInstruccionJump(operando1);
+        break;
       default:
         break;
     }
@@ -138,6 +141,19 @@ export class AppComponent {
   // -------------------------------
   // -------------------------------
   // -------------------------------
+  private async ejecutarInstruccionJump(numero: number | VariableInstruccion | undefined): Promise<void> {
+    if (numero == undefined || numero > this.memoria.celdas.length) {
+      return;
+    }
+    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+      this.elementoActivo = ElementoProcesador.PC;
+    })
+    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+      this.PC = numero;
+
+    }) 
+  }
+
   private async ejecutarInstruccionLoad(variableAGuardar: number | VariableInstruccion | undefined, numero: number | VariableInstruccion | undefined): Promise<void> {
     if (variableAGuardar == undefined || numero == undefined) {
       return;

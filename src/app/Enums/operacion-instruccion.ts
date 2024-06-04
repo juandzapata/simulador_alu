@@ -5,4 +5,5 @@ export enum OperacionInstruccion {
   SUB = 'RESTAR',
   DIV = 'DIVIDIR',
   MOVE = 'MOVER',
+  JUMP = 'SALTAR',
 }
