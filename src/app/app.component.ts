@@ -307,12 +307,6 @@ export class AppComponent {
   }
 
 
-
-  // Getters de estado de la interfaz
-  // -------------------------------
-  // -------------------------------
-  // -------------------------------
-  // -------------------------------
   get habilitarBtnEjecutar(): boolean {
     return this.estadoComputador == EstadoComputador.SIN_INICIAR;
   }
