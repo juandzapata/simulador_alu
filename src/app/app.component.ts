@@ -149,7 +149,7 @@ export class AppComponent {
       this.elementoActivo = ElementoProcesador.PC;
     })
     await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
-      this.PC = numero;
+      this.PC = numero-1;
 
     }) 
   }
