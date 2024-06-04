@@ -25,39 +25,41 @@
 
         <div class="container__body__principal__center__down">
           <div class="container__body__principal__center__first-container">
-            <div class="PC" [ngClass]="{'elemento__procesador__activo': pcEstaActivo}">
+            <div class="container__body__principal__center__UC" [ngClass]="{'elemento__procesador__activo': unidadControlEstaActiva}">
+              <p class="title">Unidad de control</p>
+            </div>
+            <div class="container__body__principal__center__ALU" [ngClass]="{'elemento__procesador__activo': aluEstaActiva}">
+              <div>
+                <p class="title">ALU</p>                
+                <br>
+                {{ALU.operacionAEjecutar}}
+              </div>
+            </div>
+          </div>
+          <div class="container__body__principal__center__first-container">
+            <div class="container__body__principal__center__UC" [ngClass]="{'elemento__procesador__activo': pcEstaActivo}">
               PC
               <br>
               {{PC+1}}
             </div>
-            <div class="MAR" [ngClass]="{'elemento__procesador__activo': marEstaActivo}">
+            <div class="container__body__principal__center__UC" [ngClass]="{'elemento__procesador__activo': marEstaActivo}">
               MAR
               <br>
               {{MAR+1}}
             </div>
           </div>
-          <div class="container__body__principal__center__UC" [ngClass]="{'elemento__procesador__activo': unidadControlEstaActiva}">
-            <p class="title">Unidad de control</p>
-          </div>
-          <div class="container__body__principal__center__ALU" [ngClass]="{'elemento__procesador__activo': aluEstaActiva}">
-            <div>
-              <div>
-                <span>{{ALU.operando1}}</span> ***** <span>{{ALU.operando2}}</span>
-              </div>
-              <p class="title">ALU</p>
+          
+          <div class="container__body__principal__center__first-container">
+            <div class="container__body__principal__center__MBR" [ngClass]="{'elemento__procesador__activo': mbrEstaActivo}">
+              <p class="title">MBR</p>
               <br>
-              {{ALU.operacionAEjecutar}}
+              {{MBR}}
             </div>
-          </div>
-          <div class="container__body__principal__center__MBR" [ngClass]="{'elemento__procesador__activo': mbrEstaActivo}">
-            <p class="title">MBR</p>
-            <br>
-            {{MBR}}
-          </div>
-          <div class="container__body__principal__center__IR" [ngClass]="{'elemento__procesador__activo': irEstaActivo}">
-            <p class="title">IR</p>
-            <br>
-            {{IR}}
+            <div class="container__body__principal__center__IR" [ngClass]="{'elemento__procesador__activo': irEstaActivo}">
+              <p class="title">IR</p>
+              <br>
+              {{IR}}
+            </div>
           </div>
           <div class="container__body__principal__center__AG" [ngClass]="{'elemento__procesador__activo': almacenGeneralEstaActivo}">
             <div>
