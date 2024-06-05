@@ -12,7 +12,7 @@ export class EjecutarTareaService {
       setTimeout(() => {
         tarea();
         resolve();
-      }, 800);
+      }, 400);
     });
   }
 }
