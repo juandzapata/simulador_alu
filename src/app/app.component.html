@@ -40,12 +40,12 @@
             <div class="container__body__principal__center__UC" [ngClass]="{'elemento__procesador__activo': pcEstaActivo}">
               PC
               <br>
-              {{PC+1}}
+              {{PC}}
             </div>
             <div class="container__body__principal__center__UC" [ngClass]="{'elemento__procesador__activo': marEstaActivo}">
               MAR
               <br>
-              {{MAR+1}}
+              {{MAR}}
             </div>
           </div>
           
@@ -97,7 +97,7 @@
         <mat-card-title>Memoria principal</mat-card-title>
         <mat-card-content>
           <div *ngFor="let instruccion of memoria.celdas; index as index">
-            {{index+1}} - {{instruccion}}
+            {{index}} - {{instruccion}}
           </div>
         </mat-card-content>
       </mat-card>
