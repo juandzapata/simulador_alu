@@ -88,7 +88,7 @@
           <div class="bus_name">Bus de datos</div>
         </div>
         <div>
-          <div class="control" [ngClass]="{'elemento__procesador__activo': busControlEstaActivo}"></div>
+          <div class="control" [ngClass]="{'elemento__procesador__activo': busDireccionesEstaActivo || busDatosEstaActivo}"></div>
           <div class="bus_name">Bus de control</div>
         </div>
       </div>
