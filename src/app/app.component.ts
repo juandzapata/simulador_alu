@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Instruccion } from './Models/instruccion';
 import { ALU } from './Models/alu';
 import { Memoria } from './Models/memoria';
-import { AlmacenGeneral } from './Models/almacen-general';
+import { Registros } from './Models/registros';
 import { ElementoProcesador } from './Enums/elemento-procesador';
 import { EjecutarTareaService } from './Services/ejecutar-tarea.service';
 import { EstadoComputador } from './Enums/estado-computador';
@@ -28,7 +28,7 @@ export class AppComponent {
   IR: Instruccion | undefined;
   ALU: ALU = new ALU();
   memoria: Memoria = new Memoria();
-  almacenGeneral: AlmacenGeneral = new AlmacenGeneral();
+  registros: Registros = new Registros();
 
   constructor(private ejecutarTareaService: EjecutarTareaService) {
     this.estadoComputador = EstadoComputador.SIN_INICIAR;
@@ -63,43 +63,43 @@ export class AppComponent {
    *  Ejecuta las instrucciones guardadas en memoria
    */
   private async ejecutarInstruccionesGuardadas() {
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.PC;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.MAR;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.MAR = this.PC;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.BUS_DIRECCIONES;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.MEMORIA;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.BUS_DATOS;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.MBR;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.MBR = this.memoria.obtenerInstruccion(this.PC);
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.IR;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.IR = this.MBR;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.UNIDAD_CONTROL;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(async () => {
+    await this.ejecutarTareaService.ejecutarDelay(async () => {
       await this.ejecutarInstruccion();
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.UNIDAD_CONTROL;
     })
     if (this.hayLineaPorEjecutar()) {
@@ -157,10 +157,10 @@ export class AppComponent {
     if (numero == undefined || numero > this.memoria.celdas.length) {
       return;
     }
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.PC;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.PC = numero-1;
 
     }) 
@@ -176,34 +176,34 @@ export class AppComponent {
     if (variableAGuardar == undefined || numero == undefined) {
       return;
     }
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.ALMACEN_GENERAL;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       switch(variableAGuardar) {
         case VariableInstruccion.A:
-          this.almacenGeneral.A = numero;
+          this.registros.A = numero;
           break;
         case VariableInstruccion.B:
-          this.almacenGeneral.B = numero;
+          this.registros.B = numero;
           break;
         case VariableInstruccion.C:
-          this.almacenGeneral.C = numero;
+          this.registros.C = numero;
           break;
         case VariableInstruccion.D:
-          this.almacenGeneral.D = numero;
+          this.registros.D = numero;
           break;
         case VariableInstruccion.E:
-          this.almacenGeneral.E = numero;
+          this.registros.E = numero;
           break;
         case VariableInstruccion.F:
-          this.almacenGeneral.F = numero;
+          this.registros.F = numero;
           break;
         case VariableInstruccion.G:
-          this.almacenGeneral.G = numero;
+          this.registros.G = numero;
           break;
         case VariableInstruccion.H:
-          this.almacenGeneral.H = numero;
+          this.registros.H = numero;
           break;
         default:
           break;
@@ -225,28 +225,28 @@ export class AppComponent {
     }
     switch(variableDestino) {
       case VariableInstruccion.A:
-        this.almacenGeneral.A = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
+        this.registros.A = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
         break;
       case VariableInstruccion.B:
-        this.almacenGeneral.B = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
+        this.registros.B = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
         break;
       case VariableInstruccion.C:
-        this.almacenGeneral.C = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
+        this.registros.C = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
         break;
       case VariableInstruccion.D:
-        this.almacenGeneral.D = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
+        this.registros.D = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
         break;
       case VariableInstruccion.E:
-        this.almacenGeneral.E = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
+        this.registros.E = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
         break;
       case VariableInstruccion.F:
-        this.almacenGeneral.F = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
+        this.registros.F = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
         break;
       case VariableInstruccion.G:
-        this.almacenGeneral.G = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
+        this.registros.G = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
         break;
       case VariableInstruccion.H:
-        this.almacenGeneral.H = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
+        this.registros.H = await this.ejecutarOperacionALU(tipoOperacion, primeraVariable, segundaVariable);
         break;
       default:
         break;
@@ -264,10 +264,10 @@ export class AppComponent {
     if (operando1 == undefined || operando2 == undefined) {
       return 0;
     }
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.ALU;
     })
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.ALMACEN_GENERAL;
     })
     const numero1 = this.obtenerValorAlmacenGeneral(operando1);
@@ -287,21 +287,21 @@ export class AppComponent {
     }
     switch(variableAObtener) {
       case VariableInstruccion.A:
-        return this.almacenGeneral.A;
+        return this.registros.A;
       case VariableInstruccion.B:
-        return this.almacenGeneral.B;
+        return this.registros.B;
       case VariableInstruccion.C:
-        return this.almacenGeneral.C;
+        return this.registros.C;
       case VariableInstruccion.D:
-        return this.almacenGeneral.D;
+        return this.registros.D;
       case VariableInstruccion.E:
-        return this.almacenGeneral.E;
+        return this.registros.E;
       case VariableInstruccion.F:
-        return this.almacenGeneral.F;
+        return this.registros.F;
       case VariableInstruccion.G:
-        return this.almacenGeneral.G;
+        return this.registros.G;
       case VariableInstruccion.H:
-        return this.almacenGeneral.H;
+        return this.registros.H;
       default:
         return 0;
     }
@@ -317,33 +317,33 @@ export class AppComponent {
     if (variableOrigen == undefined || variableDestino == undefined) {
       return;
     }
-    await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
+    await this.ejecutarTareaService.ejecutarDelay(() => {
       this.elementoActivo = ElementoProcesador.ALMACEN_GENERAL;
     })
     switch(variableDestino) {
       case VariableInstruccion.A:
-        this.almacenGeneral.A = this.obtenerValorAlmacenGeneral(variableOrigen);
+        this.registros.A = this.obtenerValorAlmacenGeneral(variableOrigen);
         break;
       case VariableInstruccion.B:
-        this.almacenGeneral.B = this.obtenerValorAlmacenGeneral(variableOrigen);
+        this.registros.B = this.obtenerValorAlmacenGeneral(variableOrigen);
         break;
       case VariableInstruccion.C:
-        this.almacenGeneral.C = this.obtenerValorAlmacenGeneral(variableOrigen);
+        this.registros.C = this.obtenerValorAlmacenGeneral(variableOrigen);
         break;
       case VariableInstruccion.D:
-        this.almacenGeneral.D = this.obtenerValorAlmacenGeneral(variableOrigen);
+        this.registros.D = this.obtenerValorAlmacenGeneral(variableOrigen);
         break;
       case VariableInstruccion.E:
-        this.almacenGeneral.E = this.obtenerValorAlmacenGeneral(variableOrigen);
+        this.registros.E = this.obtenerValorAlmacenGeneral(variableOrigen);
         break;
       case VariableInstruccion.F:
-        this.almacenGeneral.F = this.obtenerValorAlmacenGeneral(variableOrigen);
+        this.registros.F = this.obtenerValorAlmacenGeneral(variableOrigen);
         break;
       case VariableInstruccion.G:
-        this.almacenGeneral.G = this.obtenerValorAlmacenGeneral(variableOrigen);
+        this.registros.G = this.obtenerValorAlmacenGeneral(variableOrigen);
         break;
       case VariableInstruccion.H:
-        this.almacenGeneral.H = this.obtenerValorAlmacenGeneral(variableOrigen);
+        this.registros.H = this.obtenerValorAlmacenGeneral(variableOrigen);
         break;
       default:
         break;
