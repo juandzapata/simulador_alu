@@ -7,7 +7,7 @@ export class EjecutarTareaService {
 
   constructor() { }
 
-  ejecutarTareaDespuesDeCiertoTiempo(tarea: CallableFunction): Promise<void> {
+  ejecutarDelay(tarea: CallableFunction): Promise<void> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         tarea();
