@@ -35,12 +35,18 @@ export class AppComponent {
     this.elementoActivo = ElementoProcesador.UNIDAD_CONTROL;
   }
 
+  /**
+   * Inicia la ejecución de las instrucciones introducidas
+   */
   cargarYEjecutarInstrucciones() {
     this.estadoComputador = EstadoComputador.EN_EJECUCION;
     this.guardarInstruccionesEnMemoria();
     this.ejecutarInstruccionesGuardadas();
   }
 
+  /**
+   * Guarda las instrucciones introducidas en memoria para su posterior ejecución
+   */
   private guardarInstruccionesEnMemoria() {
     this.memoria = new Memoria();
     let instruccionesArray = this.instruccionesIntroducidas.split('\n');
@@ -53,6 +59,9 @@ export class AppComponent {
     return this.PC < this.memoria.celdas.length;
   }
 
+  /**
+   *  Ejecuta las instrucciones guardadas en memoria
+   */
   private async ejecutarInstruccionesGuardadas() {
     await this.ejecutarTareaService.ejecutarTareaDespuesDeCiertoTiempo(() => {
       this.elementoActivo = ElementoProcesador.PC;
@@ -99,6 +108,10 @@ export class AppComponent {
     }
   }
 
+  /**
+   * Toma la operación a realizar y realizaz la ejecución de la instrucción 
+   * @returns void
+   */
   private async ejecutarInstruccion(): Promise<void> {
     if (this.IR == undefined) {
       return;
@@ -135,12 +148,11 @@ export class AppComponent {
     }
   }
 
-
-  // Ejecucion de instrucciones
-  // -------------------------------
-  // -------------------------------
-  // -------------------------------
-  // -------------------------------
+  /**
+   * Ejecuta la instrucción JUMP
+   * @param numero  Número de la instrucción a la que se va a saltar
+   * @returns void
+   */
   private async ejecutarInstruccionJump(numero: number | VariableInstruccion | undefined): Promise<void> {
     if (numero == undefined || numero > this.memoria.celdas.length) {
       return;
@@ -154,6 +166,12 @@ export class AppComponent {
     }) 
   }
 
+  /**
+   * Ejecuta la instrucción LOAD
+   * @param variableAGuardar Variable donde se guardará el valor cargado
+   * @param numero Número o variable de la instrucción a cargar
+   * @returns void
+   */
   private async ejecutarInstruccionLoad(variableAGuardar: number | VariableInstruccion | undefined, numero: number | VariableInstruccion | undefined): Promise<void> {
     if (variableAGuardar == undefined || numero == undefined) {
       return;
@@ -193,6 +211,14 @@ export class AppComponent {
     })
   }
 
+  /**
+   *  Ejecuta una instrucción matemática
+   * @param tipoOperacion  Tipo de operación a realizar
+   * @param primeraVariable 
+   * @param segundaVariable 
+   * @param variableDestino 
+   * @returns 
+   */
   private async ejecutarInstruccionMatematica(tipoOperacion: OperacionInstruccion, primeraVariable: number | VariableInstruccion | undefined, segundaVariable: number | VariableInstruccion | undefined, variableDestino: number | VariableInstruccion | undefined): Promise<void> {
     if (primeraVariable == undefined || segundaVariable == undefined) {
       return;
@@ -227,6 +253,13 @@ export class AppComponent {
     }
   }
 
+  /**
+   *  Ejecuta una operación en la ALU
+   * @param operacion  Operación a realizar
+   * @param operando1 
+   * @param operando2 
+   * @returns number 
+   */
   private async ejecutarOperacionALU(operacion: OperacionInstruccion, operando1: number | VariableInstruccion | undefined, operando2: number | VariableInstruccion | undefined): Promise<number> {
     if (operando1 == undefined || operando2 == undefined) {
       return 0;
@@ -243,6 +276,11 @@ export class AppComponent {
     return resultadoOperacion;
   }
 
+  /**
+   * Obtiene el valor de una variable en el almacen general
+   * @param variableAObtener Variable a obtener
+   * @returns number
+   */
   private obtenerValorAlmacenGeneral(variableAObtener: number | VariableInstruccion | undefined) {
     if (variableAObtener == undefined) {
       return 0;
@@ -269,6 +307,12 @@ export class AppComponent {
     }
   }
 
+  /**
+   *  Ejecuta la instrucción MOVE
+   * @param variableOrigen Variable de origen
+   * @param variableDestino Variable de destino
+   * @returns void
+   */
   private async ejecutarInstruccionMove(variableOrigen: number | VariableInstruccion | undefined, variableDestino: number | VariableInstruccion | undefined): Promise<void> {
     if (variableOrigen == undefined || variableDestino == undefined) {
       return;
